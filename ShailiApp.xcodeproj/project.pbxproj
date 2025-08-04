@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		6119FF7A2E40964500ECAC51 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6119FF792E40964500ECAC51 /* Alamofire */; };
+		6119FF7D2E40967E00ECAC51 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 6119FF7C2E40967E00ECAC51 /* SwiftyJSON */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		6119FF5C2E40960100ECAC51 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6119FF7D2E40967E00ECAC51 /* SwiftyJSON in Frameworks */,
+				6119FF7A2E40964500ECAC51 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +119,8 @@
 			);
 			name = ShailiApp;
 			packageProductDependencies = (
+				6119FF792E40964500ECAC51 /* Alamofire */,
+				6119FF7C2E40967E00ECAC51 /* SwiftyJSON */,
 			);
 			productName = ShailiApp;
 			productReference = 6119FF4E2E40960000ECAC51 /* ShailiApp.app */;
@@ -195,6 +204,10 @@
 			);
 			mainGroup = 6119FF452E40960000ECAC51;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				6119FF782E40964500ECAC51 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				6119FF7B2E40967E00ECAC51 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6119FF4F2E40960000ECAC51 /* Products */;
 			projectDirPath = "";
@@ -397,6 +410,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app needs access to your microphone to record audio for notes.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -424,6 +438,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app needs access to your microphone to record audio for notes.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -550,6 +565,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6119FF782E40964500ECAC51 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+		6119FF7B2E40967E00ECAC51 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6119FF792E40964500ECAC51 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6119FF782E40964500ECAC51 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		6119FF7C2E40967E00ECAC51 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6119FF7B2E40967E00ECAC51 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6119FF462E40960000ECAC51 /* Project object */;
 }
