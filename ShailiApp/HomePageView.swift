@@ -23,7 +23,7 @@ struct HomePageView: View {
                 case .recordAndTranslate:
                     ContentView()
                 case .imageTranslation:
-                    ImageTranslationView()
+                    ImageTranslateView()
                 }
             }
         }
