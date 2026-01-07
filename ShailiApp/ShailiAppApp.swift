@@ -11,7 +11,7 @@ import SwiftUI
 struct ShailiAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomePageView()
         }
     }
 }
