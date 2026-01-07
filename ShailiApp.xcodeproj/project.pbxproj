@@ -34,22 +34,9 @@
 		6119FF652E40960100ECAC51 /* ShailiAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShailiAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		61086ADC2F0E5722007F6C9D /* Exceptions for "ShailiApp" folder in "ShailiApp" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 6119FF4D2E40960000ECAC51 /* ShailiApp */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		6119FF502E40960000ECAC51 /* ShailiApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				61086ADC2F0E5722007F6C9D /* Exceptions for "ShailiApp" folder in "ShailiApp" target */,
-			);
 			path = ShailiApp;
 			sourceTree = "<group>";
 		};
