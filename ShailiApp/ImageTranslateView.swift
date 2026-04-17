@@ -253,6 +253,9 @@ final class ImageTranslationViewModel: ObservableObject {
 
     private let maxPollAttempts = 45
     private let pollDelaySeconds: Double = 2.0
+    private let maxUploadBytes = 700_000
+    private let maxImageDimension: CGFloat = 1600
+    private let minCompressionQuality: CGFloat = 0.15
 
     func toggleLanguage() {
         toggled = !toggled
@@ -300,8 +303,8 @@ final class ImageTranslationViewModel: ObservableObject {
             return
         }
 
-        guard let imageData = image.jpegData(compressionQuality: 0.50) else { // can change the image quality
-            errorMessage = "Could not convert image to JPEG."
+        guard let imageData = makeUploadImageData(from: image) else {
+            errorMessage = "Could not prepare the image for upload. Please try a smaller image."
             isProcessing = false
             return
         }
@@ -410,6 +413,55 @@ final class ImageTranslationViewModel: ObservableObject {
                 self.isProcessing = false
                 self.isHidden = false
             }
+        }
+    }
+
+    private func makeUploadImageData(from image: UIImage) -> Data? {
+        var workingImage = resizedImageIfNeeded(image, maxDimension: maxImageDimension)
+        var quality: CGFloat = 0.75
+
+        while true {
+            if let data = workingImage.jpegData(compressionQuality: quality), data.count <= maxUploadBytes {
+                return data
+            }
+
+            if quality > minCompressionQuality {
+                quality -= 0.1
+                continue
+            }
+
+            let nextMaxDimension = max(600, max(workingImage.size.width, workingImage.size.height) * 0.8)
+            let resizedImage = resizedImageIfNeeded(workingImage, maxDimension: nextMaxDimension)
+
+            if resizedImage.size == workingImage.size {
+                guard let finalData = workingImage.jpegData(compressionQuality: minCompressionQuality),
+                      finalData.count <= maxUploadBytes else {
+                    return nil
+                }
+                return finalData
+            }
+
+            workingImage = resizedImage
+            quality = 0.75
+        }
+    }
+
+    private func resizedImageIfNeeded(_ image: UIImage, maxDimension: CGFloat) -> UIImage {
+        let currentMaxDimension = max(image.size.width, image.size.height)
+        guard currentMaxDimension > maxDimension else { return image }
+
+        let scale = maxDimension / currentMaxDimension
+        let newSize = CGSize(
+            width: max(1, floor(image.size.width * scale)),
+            height: max(1, floor(image.size.height * scale))
+        )
+
+        let format = UIGraphicsImageRendererFormat.default()
+        format.scale = 1
+
+        let renderer = UIGraphicsImageRenderer(size: newSize, format: format)
+        return renderer.image { _ in
+            image.draw(in: CGRect(origin: .zero, size: newSize))
         }
     }
 }
