@@ -36,6 +36,13 @@ struct HomeView: View {
     let onRecordAndTranslate: () -> Void
     let onImageTranslation: () -> Void
 
+    private let usageSteps: [String] = [
+        "Tap Record and Translate to record a conversation and get live translation support.",
+        "Use the language control in the audio screen to switch between Mandarin, Spanish, and Hebrew.",
+        "Choose Image Translation to upload or capture a photo, then translate the detected text.",
+        "Use the clear or done actions in each screen to reset and start another translation."
+    ]
+
     var body: some View {
         ZStack {
             Color.white.ignoresSafeArea()
@@ -68,6 +75,33 @@ struct HomeView: View {
                     CapsuleActionButton(title: "Record and Translate", action: onRecordAndTranslate)
                     CapsuleActionButton(title: "Image Translation", action: onImageTranslation)
                 }
+
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("How To Use")
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundStyle(.black)
+
+                    ForEach(Array(usageSteps.enumerated()), id: \.offset) { index, step in
+                        HStack(alignment: .top, spacing: 10) {
+                            Text("\(index + 1).")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundStyle(.blue)
+
+                            Text(step)
+                                .font(.system(size: 14))
+                                .foregroundStyle(.black.opacity(0.8))
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                }
+                .padding(18)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.gray.opacity(0.08))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 18)
+                        .stroke(Color.black.opacity(0.15), lineWidth: 1)
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 18))
 
                 Spacer()
             }
@@ -154,4 +188,3 @@ struct ImageTranslationView: View {
 //
 //  Created by Lachin Fernando on 2026-01-07.
 //
-
