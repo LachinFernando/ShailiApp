@@ -48,12 +48,12 @@ struct ImageTranslateView: View {
                 .buttonStyle(.plain)
 
                 Button {
-                    vm.toggleLanguage()
+                    vm.cycleLanguage()
                 } label: {
                     VStack(spacing: 6) {
                         Text("Language")
                             .font(.system(size: 18))
-                        Text(vm.toggledLanguage.capitalized)
+                        Text(vm.selectedLanguage.displayName)
                             .font(.system(size: 14))
                             .foregroundStyle(.secondary)
                     }
@@ -108,7 +108,7 @@ struct ImageTranslateView: View {
 
                 // Translate button
                 Button {
-                    vm.getImageTranslationContents(toggledLanguage: vm.toggledLanguage)
+                    vm.getImageTranslationContents()
                 } label: {
                     Text("Translate Image")
                         .font(.system(size: 16))
@@ -136,7 +136,7 @@ struct ImageTranslateView: View {
 
                         ContentPillButton(
                             title: "Translation",
-                            text: vm.translationText.isEmpty ? "Image Content" : "Image Translation in \(vm.toggledLanguage)",
+                            text: vm.translationText.isEmpty ? "Image Content" : "Image Translation in \(vm.selectedLanguage.displayName)",
                             isPlaceholder: vm.translationText.isEmpty
                         ) {
                             if !vm.translationText.isEmpty { showTranslationSheet = true }
@@ -238,8 +238,7 @@ private struct TextSheet: View {
 final class ImageTranslationViewModel: ObservableObject {
 
     @Published var uiImage: UIImage?
-    @Published var toggled: Bool = true
-    @Published var toggledLanguage: String = "mandarin" // toggles between "mandarin" and "spanish"
+    @Published var selectedLanguage: TranslationLanguage = .mandarin
     @Published var isProcessing: Bool = false
     @Published var isHidden: Bool = true
 
@@ -257,9 +256,8 @@ final class ImageTranslationViewModel: ObservableObject {
     private let maxImageDimension: CGFloat = 1600
     private let minCompressionQuality: CGFloat = 0.15
 
-    func toggleLanguage() {
-        toggled = !toggled
-        toggledLanguage = toggled ? "mandarin" : "spanish"
+    func cycleLanguage() {
+        selectedLanguage = selectedLanguage.next
     }
 
     func setImage(_ image: UIImage?) {
@@ -290,7 +288,7 @@ final class ImageTranslationViewModel: ObservableObject {
     // - createPayload with httpMethod + body
     // - AF.request(...).responseJSON { ... }
     // - on success start polling
-    func getImageTranslationContents(toggledLanguage: String) {
+    func getImageTranslationContents() {
         isProcessing = true
         errorMessage = ""
         originalText = ""
@@ -315,7 +313,7 @@ final class ImageTranslationViewModel: ObservableObject {
             "httpMethod": "POST",
             "body": [
                 "imageBytes": base64String,
-                "language": toggledLanguage
+                "language": selectedLanguage.rawValue
             ]
         ]
 
